@@ -1,251 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hussain Dabir | Portfolio</title>
+    <title>Hussain Dabir | Premium Portfolio</title>
+    <!-- Tailwind CSS for modern, professional styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root {
-            --primary: #2563eb;
-            --bg-color: #f8fafc;
-            --text-main: #0f172a;
-            --text-light: #64748b;
-            --card-bg: #ffffff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a; /* Sleek Slate Dark Mode */
+            color: #f8fafc;
+            overflow-x: hidden;
         }
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 1rem 5%;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Glassmorphism Navigation */
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        nav a {
-            text-decoration: none;
-            color: var(--text-main);
-            margin-left: 2rem;
-            font-weight: 500;
-            transition: color 0.3s;
+        /* Premium Gradient Text */
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        nav a:hover {
-            color: var(--primary);
+        /* Animated Blobs for Background */
+        .blob {
+            position: absolute;
+            filter: blur(90px);
+            z-index: -1;
+            opacity: 0.3;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, -40px) scale(1.2); }
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin-left: 0;
-        }
-
-        /* Sections */
-        section {
-            padding: 100px 5%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: var(--primary);
-        }
-
-        /* Hero Section */
-        #home {
-            text-align: center;
-        }
-
-        #home h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        #home p {
-            font-size: 1.5rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Grid Layouts */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        /* Cards */
-        .card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-        }
-
-        .tag {
-            display: inline-block;
-            background: #e2e8f0;
-            padding: 0.2rem 0.8rem;
-            border-radius: 999px;
-            font-size: 0.875rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: var(--text-main);
-            color: white;
-        }
-
-        /* Smooth reveal animation */
+        /* Smooth Reveal Animations */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
         }
-
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Glass Cards with Hover Effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            transition: all 0.4s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5), 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        /* Entrance Animation for Hero */
+        .fade-in-up {
+            animation: fadeInUp 1.2s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
-<body>
+<body class="relative antialiased">
 
-    <nav>
-        <a href="#home" class="logo">HD.</a>
-        <div>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
+    <!-- Decorative Background Elements -->
+    <div class="blob w-96 h-96 bg-blue-600 rounded-full top-0 left-0"></div>
+    <div class="blob w-96 h-96 bg-purple-600 rounded-full bottom-0 right-0" style="animation-delay: -5s;"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#home" class="text-3xl font-bold tracking-tighter gradient-text">HD.</a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-sky-400 transition-colors duration-300">About</a>
+                <a href="#skills" class="hover:text-sky-400 transition-colors duration-300">Skills</a>
+                <a href="#experience" class="hover:text-sky-400 transition-colors duration-300">Experience</a>
+                <a href="#projects" class="hover:text-sky-400 transition-colors duration-300">Projects</a>
+                <a href="#contact" class="px-5 py-2 rounded-full bg-sky-500/10 text-sky-400 hover:bg-sky-500 hover:text-white transition-all duration-300 border border-sky-500/20">Contact</a>
+            </div>
         </div>
     </nav>
 
-    <section id="home">
-        <h1>Hi, I'm Hussain Dabir</h1>
-        <p>I build interactive, clean, and modern digital experiences.</p>
-    </section>
-
-    <section id="about" class="reveal">
-        <h2>About Me & Education</h2>
-        <div class="card">
-            <h3>Education</h3>
-            <p><strong>Your University/School Name</strong></p>
-            <p>Degree/Major | Expected Graduation: Year</p>
-            <br>
-            <p>I am a passionate developer eager to solve complex problems and build scalable applications. (Feel free to customize this text later!)</p>
-        </div>
-    </section>
-
-    <section id="skills" class="reveal">
-        <h2>Skills</h2>
-        <div class="card">
-            <span class="tag">JavaScript</span>
-            <span class="tag">HTML/CSS</span>
-            <span class="tag">React</span>
-            <span class="tag">Node.js</span>
-            <span class="tag">Python</span>
-            <span class="tag">Git & GitHub</span>
-            <!-- Add more skills here -->
-        </div>
-    </section>
-
-    <section id="experience" class="reveal">
-        <h2>Experience</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Role Title</h3>
-                <p><strong>Company Name</strong> | Year - Present</p>
-                <ul>
-                    <li>Developed feature X which improved performance by Y%.</li>
-                    <li>Collaborated with team to deliver Z.</li>
-                </ul>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-6 relative pt-20">
+        <div class="text-center max-w-4xl z-10">
+            <p class="fade-in-up text-sky-400 font-semibold tracking-widest uppercase mb-4 text-sm md:text-base">Welcome to my universe</p>
+            <h1 class="fade-in-up delay-100 text-5xl md:text-8xl font-bold mb-6 leading-tight">
+                Hi, I'm <br/><span class="gradient-text">Hussain Dabir</span>
+            </h1>
+            <p class="fade-in-up delay-200 text-lg md:text-2xl text-gray-400 mb-10 leading-relaxed font-light max-w-2xl mx-auto">
+                I bridge the gap between commerce and technology, crafting modern digital experiences with a professional edge.
+            </p>
+            <div class="fade-in-up delay-300 flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#projects" class="px-8 py-4 rounded-full bg-sky-500 text-white font-semibold hover:bg-sky-600 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-300">
+                    View My Work <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+                <a href="#contact" class="px-8 py-4 rounded-full glass-card font-semibold hover:text-sky-400 transition-all duration-300">
+                    Get in Touch
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="reveal">
-        <h2>Projects</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Project One</h3>
-                <p>A web application built using HTML, CSS, and JavaScript that solves a specific problem.</p>
-                <br>
-                <a href="#" style="color: var(--primary);">View Project &rarr;</a>
-            </div>
-            <div class="card">
-                <h3>Project Two</h3>
-                <p>An interactive dashboard utilizing modern web technologies.</p>
-                <br>
-                <a href="#" style="color: var(--primary);">View Project &rarr;</a>
+    <!-- About & Education Section -->
+    <section id="about" class="py-24 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="reveal text-4xl md:text-5xl font-bold mb-12 text-center">About <span class="text-sky-400">Me</span></h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="reveal glass-card p-8 md:p-10">
+                    <div class="text-sky-400 text-3xl mb-6"><i class="fas fa-user-graduate"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">Education Background</h3>
+                    <p class="text-xl text-gray-300 mb-1"><strong>Your University / College</strong></p>
+                    <p class="text-sky-400 font-medium mb-6">Degree in Commerce / Business</p>
+                    <p class="text-gray-400 leading-relaxed">
+                        With a strong foundation in commerce, I bring a unique analytical and business-oriented perspective to every project I undertake. I am passionate about leveraging modern technology to solve real-world problems.
+                    </p>
+                </div>
+                
+                <div class="reveal glass-card p-8 md:p-10 relative overflow-hidden group">
+                    <div class="absolute -right-10 -top-10 text-9xl text-white/5 group-hover:scale-110 transition-transform duration-500"><i class="fas fa-chart-pie"></i></div>
+                    <h3 class="text-2xl font-bold mb-4 relative z-10">My Approach</h3>
+                    <p class="text-gray-400 leading-relaxed relative z-10">
+                        I believe the best solutions are not just beautifully designed, but strategically sound. My background allows me to understand the "why" behind the business, ensuring that whatever I create delivers true value, efficiency, and a stunning user experience.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 Hussain Dabir. Built with GitHub Pages.</p>
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-6 relative">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="reveal text-4xl md:text-5xl font-bold mb-16 text-center">Core <span class="text-purple-400">Expertise</span></h2>
+            
+            <div class="reveal flex flex-wrap justify-center gap-4">
+                <!-- Skill Pills -->
+                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-sky-400">
+                    <i class="fas fa-chart-line text-xl"></i> <span>Business Strategy</span>
+                </div>
+                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-green-400">
+                    <i class="fas fa-file-excel text-xl"></i> <span>Data Analysis</span>
+                </div>
+                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-yellow-400">
+                    <i class="fas fa-lightbulb text-xl"></i> <span>Problem Solving</span>
+                </div>
+                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-pink-400">
+                    <i class="fas fa-users text-xl"></i> <span>Leadership</span>
+                </div>
+                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-orange-400">
+                    <i class="fas fa-bullseye text-xl"></i> <span>Marketing</span>
+                </div>
+                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-blue-400">
+                    <i class="fas fa-laptop-code text-xl"></i> <span>Digital Solutions</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="reveal text-4xl md:text-5xl font-bold mb-16 text-center">Professional <span class="text-sky-400">Experience</span></h2>
+            
+            <div class="space-y-8">
+                <!-- Experience Item 1 -->
+                <div class="reveal glass-card p-8 border-l-4 border-l-sky-500 relative">
+                    <div class="absolute -left-3 top-8 w-5 h-5 bg-sky-500 rounded-full shadow-[0_0_15px_rgba(56,189,248,0.8)]"></div>
+                    <div class="md:flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">Your Role / Title</h3>
+                            <p class="text-sky-400 text-lg font-medium">Company Name</p>
+                        </div>
+                        <span class="inline-block mt-2 md:mt-0 px-4 py-1 rounded-full bg-white/5 text-gray-300 text-sm">2024 - Present</span>
+                    </div>
+                    <ul class="list-disc list-inside text-gray-400 space-y-2 marker:text-sky-500">
+                        <li>Spearheaded a key initiative that increased efficiency by X%.</li>
+                        <li>Collaborated with cross-functional teams to deliver strategic goals.</li>
+                        <li>Managed data and provided insights for leadership decisions.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 px-6 relative">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="reveal text-4xl md:text-5xl font-bold mb-16 text-center">Featured <span class="text-purple-400">Projects</span></h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="reveal glass-card group overflow-hidden flex flex-col h-full">
+                    <div class="h-48 bg-gradient-to-br from-sky-900 to-slate-800 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <i class="fas fa-chart-bar text-6xl text-sky-500/50 group-hover:text-sky-400 transition-colors"></i>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col">
+                        <h3 class="text-2xl font-bold mb-3 text-white">Project One</h3>
+                        <p class="text-gray-400 mb-6 flex-grow">A comprehensive analysis and strategy model developed to optimize business workflows and increase ROI.</p>
+                        <a href="#" class="inline-flex items-center text-sky-400 font-semibold hover:text-sky-300 transition-colors">
+                            View Details <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="reveal glass-card group overflow-hidden flex flex-col h-full">
+                    <div class="h-48 bg-gradient-to-br from-purple-900 to-slate-800 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <i class="fas fa-globe text-6xl text-purple-500/50 group-hover:text-purple-400 transition-colors"></i>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col">
+                        <h3 class="text-2xl font-bold mb-3 text-white">Project Two</h3>
+                        <p class="text-gray-400 mb-6 flex-grow">A digital portfolio showcasing modern web aesthetics, built to demonstrate my transition into tech.</p>
+                        <a href="#" class="inline-flex items-center text-purple-400 font-semibold hover:text-purple-300 transition-colors">
+                            View Details <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="border-t border-white/10 mt-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-sky-900/20 z-0"></div>
+        <div class="container mx-auto px-6 py-12 relative z-10 text-center">
+            <h2 class="text-3xl font-bold mb-6">Let's Work Together</h2>
+            <p class="text-gray-400 max-w-xl mx-auto mb-8">I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+            
+            <div class="flex justify-center space-x-6 mb-10">
+                <a href="#" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-white hover:bg-sky-500 transition-all duration-300">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition-all duration-300">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="mailto:hussaindabir5253@gmail.com" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-500 transition-all duration-300">
+                    <i class="fas fa-envelope text-xl"></i>
+                </a>
+            </div>
+            
+            <p class="text-sm text-gray-500">&copy; 2026 Hussain Dabir. Crafted with modern tech.</p>
+        </div>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Reveal elements on scroll
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
+        // Smooth scroll reveal animations
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+            
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
                 if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
+                    element.classList.add('active');
                 }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Trigger immediately on load
+        
+        // Navbar glass effect on scroll
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(15, 23, 42, 0.85)';
+                nav.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.background = 'rgba(15, 23, 42, 0.7)';
+                nav.style.boxShadow = 'none';
             }
-        }
-        window.addEventListener("scroll", reveal);
-        reveal(); // Trigger on load
+        });
     </script>
 </body>
 </html>
