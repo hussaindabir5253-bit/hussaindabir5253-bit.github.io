@@ -3,307 +3,541 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hussain Dabir | Premium Portfolio</title>
-    <!-- Tailwind CSS for modern, professional styling -->
+    <title>Hussain Dabir | Digital Portfolio</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #0f172a; /* Sleek Slate Dark Mode */
-            color: #f8fafc;
-            overflow-x: hidden;
+        :root {
+            --bg-color: #050505;
+            --primary: #f59e0b; /* Amber/Gold accent matching the T-shirts */
+            --secondary: #3b82f6; 
         }
 
-        /* Glassmorphism Navigation */
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-color);
+            color: #e5e5e5;
+            overflow-x: hidden;
+            cursor: none; /* Custom cursor */
+        }
+
+        /* Custom Cursor Glow */
+        #cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        #cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+        }
+
+        /* Glassmorphism */
         .glass-nav {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(5, 5, 5, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Premium Gradient Text */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        /* Interactive Card Hover Effect */
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: var(--y, 50%);
+            left: var(--x, 50%);
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(245, 158, 11, 0.3);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.8), 0 0 20px rgba(245, 158, 11, 0.1);
+        }
+
+        /* Text Gradient */
         .gradient-text {
-            background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
+            background: linear-gradient(135deg, #f59e0b, #fbbf24, #fcd34d);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        /* Animated Blobs for Background */
-        .blob {
-            position: absolute;
-            filter: blur(90px);
-            z-index: -1;
-            opacity: 0.3;
-            animation: float 10s infinite ease-in-out alternate;
-        }
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, -40px) scale(1.2); }
-        }
-
-        /* Smooth Reveal Animations */
+        /* Scroll Reveals */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Glass Cards with Hover Effects */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 1rem;
-            transition: all 0.4s ease;
-        }
-        .glass-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(56, 189, 248, 0.3);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5), 0 0 20px rgba(56, 189, 248, 0.1);
-        }
-
-        /* Entrance Animation for Hero */
-        .fade-in-up {
-            animation: fadeInUp 1.2s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
         
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Parallax Background Grid */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        .bg-glow {
+            position: fixed;
+            top: 20%;
+            right: 10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(60px);
+        }
+
+        /* Tag Styling */
+        .tag {
+            background: rgba(245, 158, 11, 0.1);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
     </style>
 </head>
-<body class="relative antialiased">
+<body class="antialiased">
 
-    <!-- Decorative Background Elements -->
-    <div class="blob w-96 h-96 bg-blue-600 rounded-full top-0 left-0"></div>
-    <div class="blob w-96 h-96 bg-purple-600 rounded-full bottom-0 right-0" style="animation-delay: -5s;"></div>
+    <!-- Custom Cursor -->
+    <div id="cursor-glow"></div>
+    <div id="cursor-dot"></div>
+
+    <!-- Background -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 py-4">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="#home" class="text-3xl font-bold tracking-tighter gradient-text">HD.</a>
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 py-5">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold tracking-tighter text-white group flex items-center gap-2">
+                <span class="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-black text-sm">HD</span>
+                Hussain Dabir
+            </a>
             
-            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 text-sm font-medium">
-                <a href="#about" class="hover:text-sky-400 transition-colors duration-300">About</a>
-                <a href="#skills" class="hover:text-sky-400 transition-colors duration-300">Skills</a>
-                <a href="#experience" class="hover:text-sky-400 transition-colors duration-300">Experience</a>
-                <a href="#projects" class="hover:text-sky-400 transition-colors duration-300">Projects</a>
-                <a href="#contact" class="px-5 py-2 rounded-full bg-sky-500/10 text-sky-400 hover:bg-sky-500 hover:text-white transition-all duration-300 border border-sky-500/20">Contact</a>
+                <a href="#about" class="hover:text-amber-500 transition-colors duration-300">About</a>
+                <a href="#skills" class="hover:text-amber-500 transition-colors duration-300">Skills</a>
+                <a href="#experience" class="hover:text-amber-500 transition-colors duration-300">Experience</a>
+                <a href="#projects" class="hover:text-amber-500 transition-colors duration-300">Projects</a>
+                <a href="#contact" class="px-5 py-2 rounded-full bg-amber-500/10 text-amber-500 hover:bg-amber-500 hover:text-black transition-all duration-300 border border-amber-500/20">Let's Talk</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center px-6 relative pt-20">
-        <div class="text-center max-w-4xl z-10">
-            <p class="fade-in-up text-sky-400 font-semibold tracking-widest uppercase mb-4 text-sm md:text-base">Welcome to my universe</p>
-            <h1 class="fade-in-up delay-100 text-5xl md:text-8xl font-bold mb-6 leading-tight">
-                Hi, I'm <br/><span class="gradient-text">Hussain Dabir</span>
-            </h1>
-            <p class="fade-in-up delay-200 text-lg md:text-2xl text-gray-400 mb-10 leading-relaxed font-light max-w-2xl mx-auto">
-                I bridge the gap between commerce and technology, crafting modern digital experiences with a professional edge.
-            </p>
-            <div class="fade-in-up delay-300 flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#projects" class="px-8 py-4 rounded-full bg-sky-500 text-white font-semibold hover:bg-sky-600 hover:shadow-lg hover:shadow-sky-500/30 transition-all duration-300">
-                    View My Work <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-                <a href="#contact" class="px-8 py-4 rounded-full glass-card font-semibold hover:text-sky-400 transition-all duration-300">
-                    Get in Touch
-                </a>
+    <section id="home" class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+        <div class="container mx-auto px-6 md:px-12 z-10">
+            <div class="max-w-4xl">
+                <p class="reveal text-amber-500 font-semibold tracking-widest uppercase mb-4 flex items-center gap-3">
+                    <span class="w-12 h-[2px] bg-amber-500"></span>
+                    Portfolio 2026
+                </p>
+                <h1 class="reveal text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight tracking-tight text-white">
+                    I build bridges between <br/>
+                    <span class="gradient-text italic">Business & Digital.</span>
+                </h1>
+                <p class="reveal text-lg md:text-2xl text-gray-400 mb-10 leading-relaxed font-light max-w-2xl">
+                    A dynamic professional passionate about Digital Marketing, Sales, Accounts, and Promotions.
+                </p>
+                <div class="reveal flex flex-wrap gap-4">
+                    <a href="#projects" class="px-8 py-4 rounded-full bg-amber-500 text-black font-bold hover:bg-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all duration-300">
+                        Explore Work <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="#contact" class="px-8 py-4 rounded-full glass-card font-semibold hover:text-amber-500 transition-all duration-300 flex items-center gap-2">
+                        <i class="fab fa-linkedin text-xl"></i> Connect
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- About & Education Section -->
-    <section id="about" class="py-24 px-6">
-        <div class="container mx-auto max-w-6xl">
-            <h2 class="reveal text-4xl md:text-5xl font-bold mb-12 text-center">About <span class="text-sky-400">Me</span></h2>
-            
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="reveal glass-card p-8 md:p-10">
-                    <div class="text-sky-400 text-3xl mb-6"><i class="fas fa-user-graduate"></i></div>
-                    <h3 class="text-2xl font-bold mb-2">Education Background</h3>
-                    <p class="text-xl text-gray-300 mb-1"><strong>Your University / College</strong></p>
-                    <p class="text-sky-400 font-medium mb-6">Degree in Commerce / Business</p>
-                    <p class="text-gray-400 leading-relaxed">
-                        With a strong foundation in commerce, I bring a unique analytical and business-oriented perspective to every project I undertake. I am passionate about leveraging modern technology to solve real-world problems.
-                    </p>
-                </div>
+    <!-- About & Education -->
+    <section id="about" class="py-24 relative">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row gap-16 items-start">
                 
-                <div class="reveal glass-card p-8 md:p-10 relative overflow-hidden group">
-                    <div class="absolute -right-10 -top-10 text-9xl text-white/5 group-hover:scale-110 transition-transform duration-500"><i class="fas fa-chart-pie"></i></div>
-                    <h3 class="text-2xl font-bold mb-4 relative z-10">My Approach</h3>
-                    <p class="text-gray-400 leading-relaxed relative z-10">
-                        I believe the best solutions are not just beautifully designed, but strategically sound. My background allows me to understand the "why" behind the business, ensuring that whatever I create delivers true value, efficiency, and a stunning user experience.
+                <div class="w-full md:w-1/3 reveal-left sticky top-32">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">Education & <br/><span class="gradient-text">Background</span></h2>
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        My academic journey combines a strong foundation in commerce with an upcoming deep dive into the world of tech and cybersecurity.
                     </p>
                 </div>
+
+                <div class="w-full md:w-2/3 space-y-6">
+                    <!-- Edu 1 -->
+                    <div class="reveal glass-card p-8 group card-hover">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-white group-hover:text-amber-400 transition-colors">University of West London (RAK)</h3>
+                            <span class="text-amber-500 font-mono mt-2 md:mt-0">Starting Sept 2026</span>
+                        </div>
+                        <p class="text-xl text-gray-300 mb-2">BSc (Hons) in Cybersecurity</p>
+                        <p class="text-gray-500">Expanding my skill set into advanced network security, ethical hacking, and data protection.</p>
+                    </div>
+
+                    <!-- Edu 2 -->
+                    <div class="reveal glass-card p-8 group card-hover">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-white group-hover:text-amber-400 transition-colors">Sharjah Indian School</h3>
+                            <span class="text-amber-500 font-mono mt-2 md:mt-0">High School Graduate</span>
+                        </div>
+                        <p class="text-xl text-gray-300 mb-2">Commerce with Marketing</p>
+                        <p class="text-gray-500 mb-4">CBSE Board, Affiliated to Indian Association Sharjah.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tag">Business Studies</span>
+                            <span class="tag">Economics</span>
+                            <span class="tag">Accountancy</span>
+                            <span class="tag">Marketing (Major)</span>
+                            <span class="tag">Computer Applications</span>
+                        </div>
+                    </div>
+
+                    <!-- Edu 3 -->
+                    <div class="reveal glass-card p-8 group card-hover flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-1">Digital Marketing Course</h3>
+                            <p class="text-gray-400">Completed via Simplilearn</p>
+                        </div>
+                        <i class="fab fa-youtube text-3xl text-red-500"></i>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-24 px-6 relative">
-        <div class="container mx-auto max-w-6xl">
-            <h2 class="reveal text-4xl md:text-5xl font-bold mb-16 text-center">Core <span class="text-purple-400">Expertise</span></h2>
+    <section id="skills" class="py-24 relative bg-white/[0.02] border-y border-white/5">
+        <div class="container mx-auto px-6 md:px-12 text-center max-w-4xl">
+            <h2 class="reveal text-4xl md:text-5xl font-bold mb-6 text-white">What I'm <span class="gradient-text">Passionate About</span></h2>
+            <p class="reveal text-gray-400 mb-12">Driven by results, creativity, and the ability to connect products with the right audience.</p>
             
-            <div class="reveal flex flex-wrap justify-center gap-4">
-                <!-- Skill Pills -->
-                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-sky-400">
-                    <i class="fas fa-chart-line text-xl"></i> <span>Business Strategy</span>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="reveal glass-card p-8 flex flex-col items-center justify-center gap-4 card-hover cursor-default">
+                    <div class="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 text-2xl mb-2"><i class="fas fa-bullhorn"></i></div>
+                    <h3 class="font-bold text-white">Digital Marketing</h3>
                 </div>
-                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-green-400">
-                    <i class="fas fa-file-excel text-xl"></i> <span>Data Analysis</span>
+                <div class="reveal glass-card p-8 flex flex-col items-center justify-center gap-4 card-hover cursor-default" style="transition-delay: 100ms;">
+                    <div class="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 text-2xl mb-2"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="font-bold text-white">Sales</h3>
                 </div>
-                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-yellow-400">
-                    <i class="fas fa-lightbulb text-xl"></i> <span>Problem Solving</span>
+                <div class="reveal glass-card p-8 flex flex-col items-center justify-center gap-4 card-hover cursor-default" style="transition-delay: 200ms;">
+                    <div class="w-16 h-16 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500 text-2xl mb-2"><i class="fas fa-calculator"></i></div>
+                    <h3 class="font-bold text-white">Accounts</h3>
                 </div>
-                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-pink-400">
-                    <i class="fas fa-users text-xl"></i> <span>Leadership</span>
-                </div>
-                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-orange-400">
-                    <i class="fas fa-bullseye text-xl"></i> <span>Marketing</span>
-                </div>
-                <div class="glass-card px-6 py-3 flex items-center gap-3 cursor-default hover:text-blue-400">
-                    <i class="fas fa-laptop-code text-xl"></i> <span>Digital Solutions</span>
+                <div class="reveal glass-card p-8 flex flex-col items-center justify-center gap-4 card-hover cursor-default" style="transition-delay: 300ms;">
+                    <div class="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500 text-2xl mb-2"><i class="fas fa-rocket"></i></div>
+                    <h3 class="font-bold text-white">Promoter</h3>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-24 px-6">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="reveal text-4xl md:text-5xl font-bold mb-16 text-center">Professional <span class="text-sky-400">Experience</span></h2>
+    <section id="experience" class="py-24 relative">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="mb-16 text-center">
+                <h2 class="reveal text-4xl md:text-5xl font-bold text-white">Professional <span class="gradient-text">Experience</span></h2>
+                <p class="reveal text-gray-400 mt-4">1 Year of hands-on industry experience.</p>
+            </div>
             
-            <div class="space-y-8">
-                <!-- Experience Item 1 -->
-                <div class="reveal glass-card p-8 border-l-4 border-l-sky-500 relative">
-                    <div class="absolute -left-3 top-8 w-5 h-5 bg-sky-500 rounded-full shadow-[0_0_15px_rgba(56,189,248,0.8)]"></div>
-                    <div class="md:flex justify-between items-start mb-4">
+            <div class="max-w-4xl mx-auto space-y-8">
+                <!-- Exp 1 -->
+                <div class="reveal glass-card p-8 md:p-10 relative overflow-hidden card-hover">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-bl-full -z-10"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 border-b border-white/10 pb-6">
                         <div>
-                            <h3 class="text-2xl font-bold text-white">Your Role / Title</h3>
-                            <p class="text-sky-400 text-lg font-medium">Company Name</p>
+                            <h3 class="text-2xl font-bold text-white mb-2">Internship</h3>
+                            <p class="text-amber-500 text-lg font-medium">Husaini Ajmer Building Material Trading L.L.C</p>
                         </div>
-                        <span class="inline-block mt-2 md:mt-0 px-4 py-1 rounded-full bg-white/5 text-gray-300 text-sm">2024 - Present</span>
                     </div>
-                    <ul class="list-disc list-inside text-gray-400 space-y-2 marker:text-sky-500">
-                        <li>Spearheaded a key initiative that increased efficiency by X%.</li>
-                        <li>Collaborated with cross-functional teams to deliver strategic goals.</li>
-                        <li>Managed data and provided insights for leadership decisions.</li>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex gap-4">
+                            <i class="fas fa-check-circle text-amber-500 mt-1"></i>
+                            <span><strong>Digital Presence:</strong> Handled the company's social media platforms across Instagram and TikTok, driving engagement.</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <i class="fas fa-check-circle text-amber-500 mt-1"></i>
+                            <span><strong>Web Development:</strong> Created their official company website to establish an online footprint.</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <i class="fas fa-check-circle text-amber-500 mt-1"></i>
+                            <span><strong>Brand Identity:</strong> Designed professional business visiting cards and official company T-shirts.</span>
+                        </li>
                     </ul>
+                </div>
+
+                <!-- Exp 2 -->
+                <div class="reveal glass-card p-8 md:p-10 card-hover">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                        <h3 class="text-2xl font-bold text-white">Quran Teacher</h3>
+                    </div>
+                    <p class="text-gray-400 mt-4">
+                        Mentored and guided students, demonstrating patience, strong communication skills, and the ability to convey complex ideas clearly and effectively.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-24 px-6 relative">
-        <div class="container mx-auto max-w-6xl">
-            <h2 class="reveal text-4xl md:text-5xl font-bold mb-16 text-center">Featured <span class="text-purple-400">Projects</span></h2>
+    <section id="projects" class="py-24 relative bg-black">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="reveal text-4xl md:text-5xl font-bold mb-16 text-white">Featured <span class="gradient-text">Work</span></h2>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project Card 1 -->
-                <div class="reveal glass-card group overflow-hidden flex flex-col h-full">
-                    <div class="h-48 bg-gradient-to-br from-sky-900 to-slate-800 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <i class="fas fa-chart-bar text-6xl text-sky-500/50 group-hover:text-sky-400 transition-colors"></i>
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Project 1: Website -->
+                <div class="reveal glass-card group flex flex-col h-full card-hover">
+                    <div class="h-64 bg-zinc-900 border-b border-white/10 relative overflow-hidden flex items-center justify-center p-8">
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop')] bg-cover bg-center opacity-20 group-hover:opacity-40 transition-opacity duration-700"></div>
+                        <div class="relative z-10 text-center">
+                            <h4 class="text-3xl font-bold text-white mb-2">Husaini Ajmer</h4>
+                            <p class="text-amber-500 tracking-widest text-sm uppercase">Official Website</p>
+                        </div>
                     </div>
                     <div class="p-8 flex-grow flex flex-col">
-                        <h3 class="text-2xl font-bold mb-3 text-white">Project One</h3>
-                        <p class="text-gray-400 mb-6 flex-grow">A comprehensive analysis and strategy model developed to optimize business workflows and increase ROI.</p>
-                        <a href="#" class="inline-flex items-center text-sky-400 font-semibold hover:text-sky-300 transition-colors">
-                            View Details <i class="fas fa-arrow-right ml-2 text-sm"></i>
-                        </a>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Corporate Web Platform</h3>
+                        <p class="text-gray-400 mb-6 flex-grow">Designed and launched the official website for Husaini Ajmer Building Material Trading L.L.C, including a dedicated developer attribution page.</p>
+                        <div class="flex flex-col gap-3">
+                            <a href="https://www.husainiajmer.com" target="_blank" class="inline-flex items-center text-amber-500 font-semibold hover:text-amber-400 transition-colors">
+                                <i class="fas fa-link mr-2"></i> husainiajmer.com
+                            </a>
+                            <a href="https://www.husainiajmer.com/websitebyhussaindabir" target="_blank" class="inline-flex items-center text-gray-500 text-sm hover:text-gray-300 transition-colors">
+                                <i class="fas fa-code mr-2"></i> View Dev Credits Page
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Project Card 2 -->
-                <div class="reveal glass-card group overflow-hidden flex flex-col h-full">
-                    <div class="h-48 bg-gradient-to-br from-purple-900 to-slate-800 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                        <i class="fas fa-globe text-6xl text-purple-500/50 group-hover:text-purple-400 transition-colors"></i>
+                <!-- Project 2: Branding (T-shirts & Cards) -->
+                <div class="reveal glass-card group flex flex-col h-full card-hover">
+                    <div class="h-64 bg-zinc-900 border-b border-white/10 relative overflow-hidden flex items-center justify-center">
+                        <!-- We use a slick abstract placeholder, but the user can update this image later -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-amber-600/20 to-purple-900/20 group-hover:scale-110 transition-transform duration-700"></div>
+                        <i class="fas fa-tshirt text-6xl text-amber-500/50 drop-shadow-2xl relative z-10 group-hover:text-amber-400 transition-colors duration-500"></i>
                     </div>
                     <div class="p-8 flex-grow flex flex-col">
-                        <h3 class="text-2xl font-bold mb-3 text-white">Project Two</h3>
-                        <p class="text-gray-400 mb-6 flex-grow">A digital portfolio showcasing modern web aesthetics, built to demonstrate my transition into tech.</p>
-                        <a href="#" class="inline-flex items-center text-purple-400 font-semibold hover:text-purple-300 transition-colors">
-                            View Details <i class="fas fa-arrow-right ml-2 text-sm"></i>
-                        </a>
+                        <div class="flex gap-2 mb-4">
+                            <span class="tag"><i class="fas fa-pen-nib"></i> Design</span>
+                            <span class="tag"><i class="fas fa-copyright"></i> Branding</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Company Branding Assets</h3>
+                        <p class="text-gray-400 mb-6 flex-grow">Spearheaded the visual identity for the firm by designing their official business visiting cards and custom company T-shirts (featured in the repository).</p>
                     </div>
                 </div>
+
+                <!-- Project 3: TikTok -->
+                <div class="reveal glass-card group flex flex-col h-full card-hover md:col-span-2">
+                    <div class="p-8 flex flex-col md:flex-row items-center gap-8">
+                        <div class="w-full md:w-1/3 flex justify-center">
+                            <div class="w-32 h-32 rounded-full border-4 border-zinc-800 flex items-center justify-center bg-zinc-900 relative shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover:border-amber-500 transition-colors duration-500">
+                                <i class="fab fa-tiktok text-5xl text-white"></i>
+                                <div class="absolute -bottom-2 bg-amber-500 text-black font-bold px-3 py-1 rounded-full text-sm">10K+</div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h3 class="text-2xl font-bold mb-3 text-white">TikTok Account Scaling</h3>
+                            <p class="text-gray-400 mb-4">Successfully grew a personal TikTok channel from zero to over 10,000 followers by understanding algorithm trends, audience retention, and consistent content strategy.</p>
+                            <p class="text-sm text-amber-500/80 italic border-l-2 border-amber-500/30 pl-3">Note: Previous content was recently cleared as I am pivoting the channel's focus towards professional and tech-oriented content for my next career phase.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact" class="border-t border-white/10 mt-20 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-sky-900/20 z-0"></div>
-        <div class="container mx-auto px-6 py-12 relative z-10 text-center">
-            <h2 class="text-3xl font-bold mb-6">Let's Work Together</h2>
-            <p class="text-gray-400 max-w-xl mx-auto mb-8">I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
-            
-            <div class="flex justify-center space-x-6 mb-10">
-                <a href="#" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-white hover:bg-sky-500 transition-all duration-300">
-                    <i class="fab fa-github text-xl"></i>
-                </a>
-                <a href="#" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition-all duration-300">
-                    <i class="fab fa-linkedin-in text-xl"></i>
-                </a>
-                <a href="mailto:hussaindabir5253@gmail.com" class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-white hover:bg-red-500 transition-all duration-300">
-                    <i class="fas fa-envelope text-xl"></i>
-                </a>
+    <!-- Footer / Contact -->
+    <footer id="contact" class="border-t border-white/10 relative overflow-hidden py-20 bg-zinc-950">
+        <div class="container mx-auto px-6 md:px-12 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl md:text-6xl font-bold mb-8 text-white">Let's build something <span class="gradient-text">great.</span></h2>
+                
+                <div class="flex flex-col md:flex-row justify-center gap-6 mb-16">
+                    <a href="mailto:hussaindabir5253@gmail.com" class="glass-card px-8 py-5 flex items-center justify-center gap-4 hover:bg-white/5 transition-colors group">
+                        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-black transition-colors">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-sm text-gray-500">Email Me</p>
+                            <p class="text-white font-medium">hussaindabir5253@gmail.com</p>
+                        </div>
+                    </a>
+                    
+                    <a href="tel:+971589630011" class="glass-card px-8 py-5 flex items-center justify-center gap-4 hover:bg-white/5 transition-colors group">
+                        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-black transition-colors">
+                            <i class="fas fa-phone text-xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-sm text-gray-500">Call Me</p>
+                            <p class="text-white font-medium">+971 58 963 0011</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="flex justify-center space-x-6 mb-12">
+                    <a href="https://github.com/hussaindabir5253-bit" target="_blank" class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-black hover:bg-white hover:border-white transition-all duration-300">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/hussain-dabir-03755a240?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition-all duration-300">
+                        <i class="fab fa-linkedin-in text-2xl"></i>
+                    </a>
+                </div>
+                
+                <p class="text-sm text-gray-600">&copy; 2026 Hussain Dabir. Built with passion and code.</p>
             </div>
-            
-            <p class="text-sm text-gray-500">&copy; 2026 Hussain Dabir. Crafted with modern tech.</p>
         </div>
     </footer>
 
+    <!-- Interactive Scripts -->
     <script>
-        // Smooth scroll reveal animations
-        const revealElements = document.querySelectorAll('.reveal');
+        // Custom Cursor Logic
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorGlow = document.getElementById('cursor-glow');
         
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            const elementVisible = 100;
-            
-            revealElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                if (elementTop < windowHeight - elementVisible) {
-                    element.classList.add('active');
-                }
+        // Only show custom cursor on non-touch devices
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                
+                // Fast dot
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                
+                // Slow glow (smooth follow)
+                cursorGlow.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
             });
+
+            // Add hover states to links for cursor
+            document.querySelectorAll('a, button').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(2)';
+                    cursorDot.style.backgroundColor = '#ffffff';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorDot.style.backgroundColor = 'var(--primary)';
+                });
+            });
+        } else {
+            cursorDot.style.display = 'none';
+            cursorGlow.style.display = 'none';
+        }
+
+        // Card Hover Glow Effect (calculates mouse position relative to card)
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+
+        // Scroll Reveal Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
         };
 
-        window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll(); // Trigger immediately on load
-        
-        // Navbar glass effect on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Optional: stop observing once revealed
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal, .reveal-left').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar blur effect on scroll
         const nav = document.querySelector('nav');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                nav.style.background = 'rgba(15, 23, 42, 0.85)';
-                nav.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+                nav.classList.add('shadow-lg', 'shadow-black/50');
+                nav.style.background = 'rgba(5, 5, 5, 0.85)';
             } else {
-                nav.style.background = 'rgba(15, 23, 42, 0.7)';
-                nav.style.boxShadow = 'none';
+                nav.classList.remove('shadow-lg', 'shadow-black/50');
+                nav.style.background = 'rgba(5, 5, 5, 0.6)';
             }
         });
     </script>
